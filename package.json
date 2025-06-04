@@ -1,0 +1,24 @@
+{
+  "name": "neobank",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/oeki4/neobank#readme",
+  "bugs": {
+    "url": "https://github.com/oeki4/neobank/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oeki4/neobank.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./assets/css/global-input.css -o ./assets/css/global.css --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.8",
+    "tailwindcss": "^4.1.8"
+  }
+}

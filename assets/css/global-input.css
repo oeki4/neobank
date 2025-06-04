@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+    --font-ubuntu: "Ubuntu", "sans-serif";
+    --breakpoint-sm: 500px;
+    --breakpoint-md: 920px;
+    --breakpoint-xl: 1300px;
+}
