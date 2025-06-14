@@ -1,10 +1,12 @@
 import { CheckMark } from "@/shared/ui/Icons/CheckMark";
 import { BankIcon } from "@/shared/ui/Icons/BankIcon.tsx";
 import { NavLink } from "react-router";
+import { MailIcon } from "@/shared/ui/Icons/MailIcon.tsx";
+import { SendIcon } from "@/shared/ui/Icons/SendIcon.tsx";
 
 export const HomePage = () => {
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 box-content">
+    <main className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 box-content">
       <section>
         <div className="w-full flex justify-between flex-wrap md:flex-nowrap gap-y-4 gap-x-8 mb-30">
           <div className="w-full md:max-w-[610px] flex flex-col gap-9">
@@ -88,7 +90,7 @@ export const HomePage = () => {
           All courses
         </NavLink>
       </section>
-      <section>
+      <section className="mb-16">
         <h3 className="font-ubuntu font-medium text-[30px] leading-[50px] text-center mb-2 text-[#1C1C1E]">
           You can use our services anywhere in the world
         </h3>
@@ -96,6 +98,25 @@ export const HomePage = () => {
           Withdraw and transfer money online through our application
         </p>
         <img src="/map.webp" className="w-9/10 m-auto" alt="map" />
+      </section>
+      <section className="mb-[100px]">
+        <h4 className="text-2xl font-ubuntu font-bold text-center text-[#EB801D] mb-[30px]">Support</h4>
+        <p className="text-3xl font-ubuntu font-bold text-center text-[#1C1C1E] mb-6">Subscribe Newsletter & get</p>
+        <p className="text-3xl font-ubuntu font-medium text-center text-[#1C1C1E] mb-10">Bank News</p>
+        <div className="flex justify-center">
+          <div className="px-8 py-5 bg-white shadow-[0_10px_20px_rgba(54,58,120,0.1)] flex rounded-2xl">
+            <MailIcon className="w-7" />
+            <input
+              type="email"
+              placeholder="Your email"
+              className="outline-0 placeholder:text-[#9092B0] placeholder:font-nunito px-2"
+            />
+            <button className="bg-[#686DF1] rounded-3xl cursor-pointer flex items-center pl-3.5 pr-7 py-0.5 text-base font-ubuntu font-bold text-white">
+              <SendIcon className="w-6 mr-2.5" />
+              Subscribe
+            </button>
+          </div>
+        </div>
       </section>
     </main>
   );

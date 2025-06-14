@@ -3,8 +3,13 @@
 @theme {
     --font-ubuntu: "Ubuntu", sans-serif;
     --font-rubik: "Rubik", sans-serif;
+    --font-nunito: "Nunito Sans", sans-serif;
 
     --breakpoint-sm: 500px;
     --breakpoint-lg: 920px;
     --breakpoint-xl: 1300px;
+}
+
+body {
+    background: #F5F4FF;
 }

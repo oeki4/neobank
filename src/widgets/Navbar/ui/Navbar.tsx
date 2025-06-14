@@ -1,6 +1,6 @@
 export const Navbar = () => {
   return (
-    <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-[130px]">
+    <header className="max-w-[1300px] box-content mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-[130px]">
       <nav className="flex justify-between items-center py-4">
         <div className="text-2xl font-bold text-[#B4387A] font-ubuntu">NeoBank</div>
         <div className="hidden md:flex space-x-8 text-gray-600">
@@ -22,5 +22,5 @@ export const Navbar = () => {
         </button>
       </nav>
     </header>
-  )
-}
+  );
+};
