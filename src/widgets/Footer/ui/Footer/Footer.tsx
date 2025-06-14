@@ -5,7 +5,7 @@ export const Footer = () => {
   return (
     <footer className="bg-[#B2B2B233] py-24 box-content">
       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 box-content">
-        <div className="flex justify-between mb-8 flex-wrap gap-y-4">
+        <div className="flex justify-between mb-8 flex-wrap gap-4">
           <img src="/logo.webp" alt="logo" className="max-w-[158px] max-h-[50px]" />
           <div className="flex flex-col gap-1.5">
             <a href="tel:74959842513" className="text-3xl font-ubuntu font-bold mb-1.5">
@@ -16,7 +16,7 @@ export const Footer = () => {
             </a>
           </div>
         </div>
-        <div className="flex flex-wrap justify-between gap-x-8 gap-y-2 mb-7">
+        <div className="flex flex-wrap gap-x-8 gap-y-2 mb-7">
           {FOOTER_LINKS.map((link) => (
             <NavLink className="text-base font-ubuntu font-medium" to="/">
               {link}

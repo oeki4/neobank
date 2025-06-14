@@ -6,14 +6,14 @@ import { SendIcon } from "@/shared/ui/Icons/SendIcon.tsx";
 
 export const HomePage = () => {
   return (
-    <main className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 box-content">
+    <main className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 box-content md:mt-[130px]">
       <section>
         <div className="w-full flex justify-between flex-wrap md:flex-nowrap gap-y-4 gap-x-8 mb-30">
           <div className="w-full md:max-w-[610px] flex flex-col gap-9">
             <h1 className="font-ubuntu font-bold text-3xl sm:text-4xl md:text-4xl lg:text-5xl">
               Choose the design you like and apply for card right now
             </h1>
-            <button className="bg-[#003CFF] cursor-pointer w-min whitespace-nowrap text-sm sm:text-base font-bold hover:bg-blue-700 text-white py-4 px-4 leading-none font-ubuntu rounded-2xl">
+            <button className="bg-[#003CFF] cursor-pointer w-min whitespace-nowrap text-sm sm:text-base transition-colors font-bold hover:bg-[#7796C0] text-white py-4 px-4 leading-none font-ubuntu rounded-2xl">
               Choose the card
             </button>
           </div>
@@ -86,7 +86,10 @@ export const HomePage = () => {
           </div>
           <BankIcon className="max-w-[120px] hidden md:block" />
         </div>
-        <NavLink className="font-ubuntu font-bold text-white text-xl leading-5" to="/">
+        <NavLink
+          className="font-ubuntu hover:opacity-50 transition-opacity font-bold text-white text-xl leading-5"
+          to="/"
+        >
           All courses
         </NavLink>
       </section>
@@ -104,14 +107,16 @@ export const HomePage = () => {
         <p className="text-3xl font-ubuntu font-bold text-center text-[#1C1C1E] mb-6">Subscribe Newsletter & get</p>
         <p className="text-3xl font-ubuntu font-medium text-center text-[#1C1C1E] mb-10">Bank News</p>
         <div className="flex justify-center">
-          <div className="px-8 py-5 bg-white shadow-[0_10px_20px_rgba(54,58,120,0.1)] flex rounded-2xl">
-            <MailIcon className="w-7" />
-            <input
-              type="email"
-              placeholder="Your email"
-              className="outline-0 placeholder:text-[#9092B0] placeholder:font-nunito px-2"
-            />
-            <button className="bg-[#686DF1] rounded-3xl cursor-pointer flex items-center pl-3.5 pr-7 py-0.5 text-base font-ubuntu font-bold text-white">
+          <div className="px-4 md:px-8 py-5 bg-white shadow-[0_10px_20px_rgba(54,58,120,0.1)] flex flex-col w-full sm:w-auto gap-y-4 sm:flex-row rounded-2xl">
+            <div className="flex">
+              <MailIcon className="w-7" />
+              <input
+                type="email"
+                placeholder="Your email"
+                className="outline-0 placeholder:text-[#9092B0] placeholder:font-nunito font-nunito px-2 w-full"
+              />
+            </div>
+            <button className="bg-[#686DF1] rounded-3xl cursor-pointer justify-center sm:justify-start hover:opacity-50 transition-opacity flex items-center pl-3.5 pr-7 py-2 sm:py-0.5 text-base font-ubuntu font-bold text-white">
               <SendIcon className="w-6 mr-2.5" />
               Subscribe
             </button>
