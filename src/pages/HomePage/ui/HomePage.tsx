@@ -1,8 +1,9 @@
-import { CheckMark } from "@/shared/ui/Icons/CheckMark";
+import { CheckMark } from "@/shared/ui/Icons/CheckMark.tsx";
 import { BankIcon } from "@/shared/ui/Icons/BankIcon.tsx";
 import { NavLink } from "react-router";
 import { MailIcon } from "@/shared/ui/Icons/MailIcon.tsx";
 import { SendIcon } from "@/shared/ui/Icons/SendIcon.tsx";
+import { Slider } from "@/widgets/Slider";
 
 export const HomePage = () => {
   return (
@@ -102,6 +103,10 @@ export const HomePage = () => {
         </p>
         <img src="/map.webp" className="w-9/10 m-auto" alt="map" />
       </section>
+      <div className="w-full overflow-hidden">
+        <Slider />
+      </div>
+
       <section className="mb-[100px]">
         <h4 className="text-2xl font-ubuntu font-bold text-center text-[#EB801D] mb-[30px]">Support</h4>
         <p className="text-3xl font-ubuntu font-bold text-center text-[#1C1C1E] mb-6">Subscribe Newsletter & get</p>
