@@ -106,7 +106,6 @@ export const HomePage = () => {
       <div className="w-full overflow-hidden">
         <Slider />
       </div>
-
       <section className="mb-[100px]">
         <h4 className="text-2xl font-ubuntu font-bold text-center text-[#EB801D] mb-[30px]">Support</h4>
         <p className="text-3xl font-ubuntu font-bold text-center text-[#1C1C1E] mb-6">Subscribe Newsletter & get</p>
