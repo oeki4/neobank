@@ -2,9 +2,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import * as React from "react";
 import { LeftArrowIcon } from "@/shared/ui/Icons/LeftArrowIcon.tsx";
 import { RightArrowIcon } from "@/shared/ui/Icons/RightArrowIcon.tsx";
+import { fetchNews } from "../api/fetchNews.ts";
+import type { Article } from "@/entities/article";
 
 export const Slider = () => {
   const [pos, setPos] = useState<number>(0);
+  const [news, setNews] = useState<Article[]>([]);
   const [startPos, setStartPos] = useState<number>(0);
   const [fullSwipe, setFullSwipe] = useState<number>(0);
   const [inSwipe, setInSwipe] = useState<boolean>(false);
@@ -60,14 +63,15 @@ export const Slider = () => {
       setStartPos(evt.clientX);
       if (
         fullSwipe + pos - startPos >= ((slidesCount - 1) * slideWidth + (slidesCount - 1) * spaceBetweenSlides) * -1 &&
-        fullSwipe + pos - startPos <= slideWidth
+        fullSwipe + pos - startPos <= slideWidth &&
+        inSwipe
       ) {
         setFullSwipe(fullSwipe + pos - startPos);
       }
 
       setIsCorrecting(true);
     },
-    [fullSwipe, pos, slidesCount, startPos]
+    [fullSwipe, inSwipe, pos, slidesCount, startPos]
   );
 
   const onTouchEndHandler = useCallback(
@@ -116,9 +120,10 @@ export const Slider = () => {
   }, [fullSwipe, inSwipe, isCorrecting, pos, slidesCount, startPos]);
 
   useEffect(() => {
-    if (slidesRef.current) {
-      setSlidesCount(slidesRef.current.children.length);
-    }
+    fetchNews().then((news) => {
+      setNews(news.articles);
+      setSlidesCount(news.articles.length);
+    });
   }, []);
 
   return (
@@ -141,78 +146,27 @@ export const Slider = () => {
         className="w-full transition-transform duration-50"
       >
         <div ref={slidesRef} className="flex" style={{ gap: `${spaceBetweenSlides}px` }}>
-          <div
-            className="hover:cursor-grab shadow-[0_2px_4px_0_rgba(0,0,0,0.2)] active:cursor-grabbing select-none shrink-0 rounded-2xl p-4 border border-[#BBBBBB33] bg-white"
-            style={{
-              width: `${slideWidth}px`,
-            }}
-          >
-            <img
-              src="https://i.imgur.com/mp3rUty.jpeg"
-              className="w-full pointer-events-none max-h-[120px]"
-              alt="product-img"
-            />
-            <h3 className="font-rubik text-lg mt-8 text-center font-medium line-clamp-2 min-h-[42px] pointer-events-none">
-              Classic Comfort Drawstring Joggers
-            </h3>
-            <p className="font-rubik text-lg mt-8 text-center line-clamp-4 min-h-[68px] pointer-events-none">
-              Experience the perfect blend of comfort and style with our Classic Comfort Drawstring Joggers. Designed
-              for a relaxed fit, these joggers feature a soft, stretchable fabric, convenient side pockets, and an
-              adjustable drawstring waist with elegant gold-tipped detailing. Ideal for lounging or running errands,
-              these pants will quickly become your go-to for effortless, casual wear.
-            </p>
-          </div>
-          <div
-            className="hover:cursor-grab shadow-[0_2px_4px_0_rgba(0,0,0,0.2)] active:cursor-grabbing select-none shrink-0 rounded-2xl p-4 border border-[#BBBBBB33] bg-white"
-            style={{
-              width: `${slideWidth}px`,
-            }}
-          >
-            <img src="https://i.imgur.com/mp3rUty.jpeg" className="w-full pointer-events-none" alt="product-img" />
-            <h3 className="font-rubik text-lg text-center font-medium line-clamp-2 min-h-[42px] pointer-events-none">
-              Classic Comfort Drawstring Joggers
-            </h3>
-            <p className="font-rubik text-lg text-center line-clamp-4 min-h-[68px] pointer-events-none">
-              Experience the perfect blend of comfort and style with our Classic Comfort Drawstring Joggers. Designed
-              for a relaxed fit, these joggers feature a soft, stretchable fabric, convenient side pockets, and an
-              adjustable drawstring waist with elegant gold-tipped detailing. Ideal for lounging or running errands,
-              these pants will quickly become your go-to for effortless, casual wear.
-            </p>
-          </div>
-          <div
-            className="hover:cursor-grab shadow-[0_2px_4px_0_rgba(0,0,0,0.2)] active:cursor-grabbing select-none shrink-0 rounded-2xl p-4 border border-[#BBBBBB33] bg-white"
-            style={{
-              width: `${slideWidth}px`,
-            }}
-          >
-            <img src="https://i.imgur.com/mp3rUty.jpeg" className="w-full pointer-events-none" alt="product-img" />
-            <h3 className="font-rubik text-lg text-center font-medium line-clamp-2 min-h-[42px] pointer-events-none">
-              Classic Comfort Drawstring Joggers
-            </h3>
-            <p className="font-rubik text-lg text-center line-clamp-4 min-h-[68px] pointer-events-none">
-              Experience the perfect blend of comfort and style with our Classic Comfort Drawstring Joggers. Designed
-              for a relaxed fit, these joggers feature a soft, stretchable fabric, convenient side pockets, and an
-              adjustable drawstring waist with elegant gold-tipped detailing. Ideal for lounging or running errands,
-              these pants will quickly become your go-to for effortless, casual wear.
-            </p>
-          </div>
-          <div
-            className="hover:cursor-grab shadow-[0_2px_4px_0_rgba(0,0,0,0.2)] active:cursor-grabbing select-none shrink-0 rounded-2xl p-4 border border-[#BBBBBB33] bg-white"
-            style={{
-              width: `${slideWidth}px`,
-            }}
-          >
-            <img src="https://i.imgur.com/mp3rUty.jpeg" className="w-full pointer-events-none" alt="product-img" />
-            <h3 className="font-rubik text-lg text-center font-medium line-clamp-2 min-h-[42px] pointer-events-none">
-              Classic Comfort Drawstring Joggers
-            </h3>
-            <p className="font-rubik text-lg text-center line-clamp-4 min-h-[68px] pointer-events-none">
-              Experience the perfect blend of comfort and style with our Classic Comfort Drawstring Joggers. Designed
-              for a relaxed fit, these joggers feature a soft, stretchable fabric, convenient side pockets, and an
-              adjustable drawstring waist with elegant gold-tipped detailing. Ideal for lounging or running errands,
-              these pants will quickly become your go-to for effortless, casual wear.
-            </p>
-          </div>
+          {news.map((el) => (
+            <div
+              className="hover:cursor-grab shadow-[0_2px_4px_0_rgba(0,0,0,0.2)] active:cursor-grabbing select-none shrink-0 rounded-2xl p-4 border border-[#BBBBBB33] bg-white"
+              style={{
+                width: `${slideWidth}px`,
+              }}
+              key={el.publishedAt.toString()}
+            >
+              <img src={el.urlToImage} className="w-full pointer-events-none max-h-[120px]" alt={el.title} />
+              <a
+                href={el.url}
+                target="_blank"
+                className="font-rubik cursor-pointer text-lg mt-8 text-center font-medium line-clamp-2 min-h-[42px]"
+              >
+                {el.title}
+              </a>
+              <p className="font-rubik text-lg mt-8 text-center line-clamp-4 min-h-[68px] pointer-events-none">
+                {el.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
       <div className="flex mt-12 gap-5 justify-end">

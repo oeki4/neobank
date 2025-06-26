@@ -17,8 +17,8 @@ export const Footer = () => {
           </div>
         </div>
         <div className="flex flex-wrap gap-x-8 gap-y-2 mb-7">
-          {FOOTER_LINKS.map((link) => (
-            <NavLink className="text-base font-ubuntu font-medium" to="/">
+          {FOOTER_LINKS.map((link, index) => (
+            <NavLink key={index} className="text-base font-ubuntu font-medium" to="/">
               {link}
             </NavLink>
           ))}
