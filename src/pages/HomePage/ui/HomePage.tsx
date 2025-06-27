@@ -1,9 +1,8 @@
 import { CheckMark } from "@/shared/ui/Icons/CheckMark.tsx";
-import { BankIcon } from "@/shared/ui/Icons/BankIcon.tsx";
-import { NavLink } from "react-router";
 import { MailIcon } from "@/shared/ui/Icons/MailIcon.tsx";
 import { SendIcon } from "@/shared/ui/Icons/SendIcon.tsx";
 import { Slider } from "@/widgets/Slider";
+import { ExchangeRates } from "@/widgets/ExchangeRates";
 
 export const HomePage = () => {
   return (
@@ -50,50 +49,7 @@ export const HomePage = () => {
           </ul>
         </div>
       </section>
-      <section className="flex flex-col gap-4 rounded-2xl bg-[#c9c9c9] bg-gradient-to-t from-[#c9c9c9] to-[#f0f0f0] p-8 mb-12">
-        <div className="flex justify-between items-center flex-wrap">
-          <h3 className="font-ubuntu font-medium text-[30px] text-[#1C1C1E]">Exchange rate in internet bank</h3>
-          <p className="font-ubuntu font-medium text-base">Update every 15 minutes, MSC 09.08.2022</p>
-        </div>
-        <div className="flex justify-between items-center flex-wrap">
-          <p className="font-ubuntu font-medium text-xl leading-12 mb-8">Currency</p>
-        </div>
-        <div className="flex justify-between items-center flex-wrap mb-12">
-          <div className="flex flex-wrap md:grid md:grid-cols-3 gap-8">
-            <div className="font-ubuntu font-bold flex gap-5">
-              <p className="text-[#808080] text-xl leading-5">USD:</p>
-              <p className="text-black text-xl leading-5">60.78</p>
-            </div>
-            <div className="font-ubuntu font-bold flex gap-5">
-              <p className="text-[#808080] text-xl leading-5">CNY:</p>
-              <p className="text-black text-xl leading-5">9.08</p>
-            </div>
-            <div className="font-ubuntu font-bold flex gap-5">
-              <p className="text-[#808080] text-xl leading-5">CHF:</p>
-              <p className="text-black text-xl leading-5">64.78</p>
-            </div>
-            <div className="font-ubuntu font-bold flex gap-5">
-              <p className="text-[#808080] text-xl leading-5">USD:</p>
-              <p className="text-black text-xl leading-5">60.78</p>
-            </div>
-            <div className="font-ubuntu font-bold flex gap-5">
-              <p className="text-[#808080] text-xl leading-5">JPY:</p>
-              <p className="text-black text-xl leading-5">0.46</p>
-            </div>
-            <div className="font-ubuntu font-bold flex gap-5">
-              <p className="text-[#808080] text-xl leading-5">TRY:</p>
-              <p className="text-black text-xl leading-5">3.39</p>
-            </div>
-          </div>
-          <BankIcon className="max-w-[120px] hidden md:block" />
-        </div>
-        <NavLink
-          className="font-ubuntu hover:opacity-50 transition-opacity font-bold text-white text-xl leading-5"
-          to="/"
-        >
-          All courses
-        </NavLink>
-      </section>
+      <ExchangeRates />
       <section className="mb-16">
         <h3 className="font-ubuntu font-medium text-[30px] leading-[50px] text-center mb-2 text-[#1C1C1E]">
           You can use our services anywhere in the world
