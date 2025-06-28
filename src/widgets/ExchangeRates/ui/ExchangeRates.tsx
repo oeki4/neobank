@@ -12,8 +12,24 @@ export const ExchangeRates = () => {
   useEffect(() => {
     fetchExchangeRates().then((rates) => {
       setRates(rates.conversion_rates);
-      setLastUpdate(DateTime.fromSeconds(rates.time_last_update_unix));
+      setLastUpdate(DateTime.now());
     });
+  }, []);
+
+  useEffect(() => {
+    const updateTimer = setInterval(
+      () => {
+        fetchExchangeRates().then((rates) => {
+          setRates(rates.conversion_rates);
+          setLastUpdate(DateTime.now());
+        });
+      },
+      1000 * 60 * 15
+    );
+
+    return () => {
+      clearInterval(updateTimer);
+    };
   }, []);
 
   return (
@@ -21,7 +37,7 @@ export const ExchangeRates = () => {
       <div className="flex justify-between items-center flex-wrap">
         <h3 className="font-ubuntu font-medium text-[30px] text-[#1C1C1E]">Exchange rate in internet bank</h3>
         <p className="font-ubuntu font-medium text-base">
-          Update every 1 hour, MSC {lastUpdate.toFormat("HH:mm dd.LL.yy")}
+          Update every 15 minutes, MSC {lastUpdate.toFormat("HH:mm dd.LL.yy")}
         </p>
       </div>
       <div className="flex justify-between items-center flex-wrap">

@@ -121,7 +121,7 @@ export const Slider = () => {
 
   useEffect(() => {
     fetchNews().then((news) => {
-      setNews(news.articles);
+      setNews(news.articles.filter((el) => el.description && el.title && el.urlToImage));
       setSlidesCount(news.articles.length);
     });
   }, []);
