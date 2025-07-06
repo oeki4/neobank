@@ -15,13 +15,13 @@ export const Tabs = (props: TabsProps) => {
   };
   return (
     <div className="relative w-full">
-      <ul className={["flex cursor-pointer overflow-x-auto", cls.tabs].join(" ")}>
+      <ul className={["flex overflow-x-auto", cls.tabs].join(" ")}>
         {children.map((elem, index) => {
           return (
             <li
               key={index}
               className={[
-                "font-ubuntu text-base whitespace-nowrap text-[#7B7454] pb-3 px-4",
+                "font-ubuntu cursor-pointer text-base whitespace-nowrap text-[#7B7454] pb-3 px-4",
                 selectedTabIndex === index ? "border-b-2 border-[#7B7454]" : "",
               ].join(" ")}
               onClick={() => changeTab(index)}
