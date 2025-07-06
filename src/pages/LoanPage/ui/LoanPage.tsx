@@ -7,7 +7,7 @@ import { ClockIcon } from "@/shared/ui/Icons/ClockIcon.tsx";
 import { CartIcon } from "@/shared/ui/Icons/CartIcon.tsx";
 import { CardIcon } from "@/shared/ui/Icons/CardIcon.tsx";
 import { Accordion } from "@/shared/ui/Accordion/Accordion.tsx";
-import { AmountRangeInput } from "@/shared/ui/Input/AmountRangeInput.tsx";
+import { GetCardForm } from "./GetCardForm.tsx";
 
 export const LoanPage = () => {
   return (
@@ -278,9 +278,8 @@ export const LoanPage = () => {
             </p>
           </div>
         </div>
-        <div>
-          <AmountRangeInput defaultValue={12} />
-        </div>
+        <GetCardForm />
+        <div></div>
       </section>
     </main>
   );

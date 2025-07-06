@@ -1,35 +1,38 @@
 import cls from "./amount-range-input.module.scss";
-import { type HTMLAttributes, useEffect, useRef } from "react";
+import { type HTMLAttributes, useRef } from "react";
 
 interface AmountRangeInputProps extends HTMLAttributes<HTMLInputElement> {
-  customProp?: string;
+  className?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  value?: number;
 }
 
 export const AmountRangeInput = (props: AmountRangeInputProps) => {
-  const { customProp, ...otherProps } = props;
+  const { className, min = 0, max = 100, step = 10, value, ...otherProps } = props;
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const handleInput = () => {
-    if (inputRef.current) {
-      const min = +inputRef.current?.min || 0;
-      const max = +inputRef.current?.max || 100;
-      const currentVal = +inputRef.current?.value || 0;
-      inputRef.current.style.backgroundSize = ((currentVal - min) / (max - min)) * 100 + "% 100%";
-    }
-  };
 
-  useEffect(() => {
-    if (inputRef.current) {
-      const inputElement = inputRef.current;
-      inputElement.addEventListener("input", handleInput);
-      const min = +inputElement?.min || 0;
-      const max = +inputElement?.max || 100;
-      const defaultValue = +inputElement?.defaultValue || 0;
-      inputElement.style.backgroundSize = ((defaultValue - min) / (max - min)) * 100 + "% 100%";
-
-      return () => {
-        inputElement.removeEventListener("input", handleInput);
-      };
-    }
-  }, []);
-  return <input ref={inputRef} className={cls.rangeInput} type="range" {...otherProps} />;
+  return (
+    <div className={["flex flex-col mb-10", className].join(" ")}>
+      <p className="font-ubuntu font-medium mb-2.5 text-base">{value}</p>
+      <input
+        ref={inputRef}
+        min={min}
+        max={max}
+        step={step}
+        type="range"
+        className={cls.rangeInput}
+        value={value}
+        style={{
+          backgroundSize: (((value || 0) - min) / (max - min)) * 100 + "% 100%",
+        }}
+        {...otherProps}
+      />
+      <div className="flex justify-between gap-4 mt-2">
+        <p className="font-ubuntu font-medium text-base text-[#786D6D]">{min}</p>
+        <p className="font-ubuntu font-medium text-base text-[#786D6D]">{max}</p>
+      </div>
+    </div>
+  );
 };
