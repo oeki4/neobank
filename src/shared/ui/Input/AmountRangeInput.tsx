@@ -14,8 +14,7 @@ export const AmountRangeInput = (props: AmountRangeInputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
-    <div className={["flex flex-col mb-10", className].join(" ")}>
-      <p className="font-ubuntu font-medium mb-2.5 text-base">{value}</p>
+    <div className={className}>
       <input
         ref={inputRef}
         min={min}
@@ -25,7 +24,10 @@ export const AmountRangeInput = (props: AmountRangeInputProps) => {
         className={cls.rangeInput}
         value={value}
         style={{
-          backgroundSize: (((value || 0) - min) / (max - min)) * 100 + "% 100%",
+          backgroundSize:
+            value && value >= 15000 && value <= 600000
+              ? (((value || 0) - min) / (max - min)) * 100 + "% 100%"
+              : "0% 100%",
         }}
         {...otherProps}
       />

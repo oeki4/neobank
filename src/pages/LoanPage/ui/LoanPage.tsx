@@ -241,7 +241,7 @@ export const LoanPage = () => {
           </Tab>
         </Tabs>
       </section>
-      <section className="mt-12">
+      <section className="mt-12 pb-24">
         <h2 className="w-full text-[30px] font-ubuntu font-bold text-center text-black">How to get a card</h2>
         <div className="mt-3.5 grid grid-cols-3 max-sm:gap-4 min-sm:max-md:gap-10 md:gap-18 lg:gap-24">
           <div className="flex flex-col gap-5">
@@ -279,7 +279,6 @@ export const LoanPage = () => {
           </div>
         </div>
         <GetCardForm />
-        <div></div>
       </section>
     </main>
   );
