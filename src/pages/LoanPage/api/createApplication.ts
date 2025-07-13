@@ -22,10 +22,13 @@ interface CreateApplicationBody {
 }
 
 export const createApplication = async (body: CreateApplicationBody) => {
-  const res = await fetch("http://localhost:8080/appliation", {
+  const res = await fetch("http://localhost:8080/application", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(body),
-    mode: "no-cors",
+    mode: "cors",
   });
   const application = (await res.json()) as ApplicationResponse;
   return application;

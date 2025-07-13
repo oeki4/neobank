@@ -35,15 +35,21 @@ export const GetCardForm = () => {
     setInLoading(true);
     setTimeout(() => {
       setInLoading(false);
+      const [day, month, year] = data.dateOfBirth.split(".");
+      const birthDate = DateTime.fromObject({
+        day: parseInt(day, 10),
+        month: parseInt(month, 10),
+        year: parseInt(year, 10),
+      });
       createApplication({
-        amount: data.amount,
+        amount: +data.amount,
         term: +data.term,
         middleName: data.patronymic,
         lastName: data.lastName,
         passportSeries: data.passportSeries.toString(),
         passportNumber: data.passportNumber.toString(),
         email: data.email,
-        birthdate: data.dateOfBirth,
+        birthdate: birthDate.toFormat("yyyy-LL-dd"),
         firstName: data.firstName,
       }).then((res) => console.log(res));
       // reset();
