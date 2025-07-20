@@ -2,6 +2,7 @@ import { MailIcon } from "@/shared/ui/Icons/MailIcon.tsx";
 import { SendIcon } from "@/shared/ui/Icons/SendIcon.tsx";
 import { useCallback, useEffect, useState } from "react";
 import { subscribeEmail } from "@/widgets/SubscribeEmail/api/subscribeEmail.ts";
+import * as React from "react";
 
 export const SubscribeEmail = () => {
   const [subscribeBtnActive, setSubscribeBtnActive] = useState(false);
@@ -47,8 +48,8 @@ export const SubscribeEmail = () => {
                 <input
                   type="email"
                   placeholder="Your email"
-                  onInput={(e) => {
-                    setEmail(e.target?.value || "");
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                    setEmail(e.currentTarget?.value || "");
                   }}
                   className="outline-0 placeholder:text-[#9092B0] placeholder:font-nunito font-nunito px-2 w-full"
                 />
@@ -63,7 +64,7 @@ export const SubscribeEmail = () => {
               </button>
             </>
           ) : (
-            <p>You are already subscribed to the newsletter</p>
+            <p className="font-rubik text-md font-medium">You are already subscribed to the newsletter</p>
           )}
         </div>
       </div>

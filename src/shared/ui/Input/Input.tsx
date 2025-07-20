@@ -34,7 +34,7 @@ export const Input = (props: InputProps) => {
 
   return (
     <div className="w-full">
-      <label htmlFor={otherProps?.id} className="font-ubuntu font-medium text-base text-[#1A202C]">
+      <label htmlFor={otherProps?.id} className="font-ubuntu font-medium text-base max-md:text-sm text-[#1A202C]">
         {label ? label : null}
         {required ? <span className="text-[#FF0000]">&nbsp;*</span> : null}
       </label>

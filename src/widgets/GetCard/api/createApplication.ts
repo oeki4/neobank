@@ -1,13 +1,4 @@
-interface ApplicationResponse {
-  applicationId: number;
-  requestedAmount: number;
-  totalAmount: number;
-  term: number;
-  monthlyPayment: number;
-  rate: number;
-  isInsuranceEnabled: boolean;
-  isSalaryClient: boolean;
-}
+import type { Application } from "@/entities/application";
 
 interface CreateApplicationBody {
   amount: number;
@@ -30,6 +21,6 @@ export const createApplication = async (body: CreateApplicationBody) => {
     body: JSON.stringify(body),
     mode: "cors",
   });
-  const application = (await res.json()) as ApplicationResponse;
+  const application = (await res.json()) as Application[];
   return application;
 };

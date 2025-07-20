@@ -1,0 +1,2 @@
+export const GET_CARD_STEP = "GET_CARD_STEP";
+export const APPLICATION_ITEMS = "APPLICATION_ITEMS";

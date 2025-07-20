@@ -4,11 +4,11 @@ import { Footer } from "@/widgets/Footer";
 
 function App() {
   return (
-    <div>
+    <>
       <Navbar />
       <AppRouter />
       <Footer />
-    </div>
+    </>
   );
 }
 

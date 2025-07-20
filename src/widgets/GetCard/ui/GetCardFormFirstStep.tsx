@@ -7,7 +7,15 @@ import { useState } from "react";
 import { Loader } from "@/shared/ui/Loader/Loader.tsx";
 import * as React from "react";
 import { useMask } from "@react-input/mask";
-import { createApplication } from "@/pages/LoanPage/api/createApplication.ts";
+import { createApplication } from "@/widgets/GetCard/api/createApplication.ts";
+import type { Application } from "@/entities/application";
+import { numberWithSpaces } from "@/shared/utils/numberWithSpaces.ts";
+import { APPLICATION_ITEMS, GET_CARD_STEP } from "@/shared/const/storageItems.ts";
+
+interface GetCardFormFirstStepProps {
+  onSetApplications: (payload: Application[]) => void;
+  onSetStep: (payload: number) => void;
+}
 
 interface Inputs {
   amount: number;
@@ -21,12 +29,14 @@ interface Inputs {
   passportNumber: number;
 }
 
-export const GetCardForm = () => {
+export const GetCardFormFirstStep = (props: GetCardFormFirstStepProps) => {
+  const { onSetApplications, onSetStep } = props;
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors, isSubmitted },
   } = useForm<Inputs>({ defaultValues: { amount: 15000 } });
   const [inLoading, setInLoading] = useState<boolean>(false);
@@ -51,8 +61,17 @@ export const GetCardForm = () => {
         email: data.email,
         birthdate: birthDate.toFormat("yyyy-LL-dd"),
         firstName: data.firstName,
-      }).then((res) => console.log(res));
-      // reset();
+      }).then((res) => {
+        if (res.length) {
+          onSetApplications(res);
+          onSetStep(2);
+          localStorage.setItem(APPLICATION_ITEMS, JSON.stringify(res));
+          localStorage.setItem(GET_CARD_STEP, "2");
+          reset();
+        } else {
+          console.log(res);
+        }
+      });
     }, 2000);
   };
   const inputRef = useMask({
@@ -119,7 +138,7 @@ export const GetCardForm = () => {
         </div>
         <div className="lg:pl-10 flex flex-col gap-4">
           <p className="font-ubuntu font-bold text-xl text-black">You have chosen the amount</p>
-          <p className="font-ubuntu font-medium text-base text-black">{watchedAmount} ₽</p>
+          <p className="font-ubuntu font-medium text-base text-black">{numberWithSpaces(watchedAmount)} ₽</p>
         </div>
       </div>
       <h3 className="font-ubuntu font-bold text-xl mt-8">Contact Information</h3>
@@ -156,6 +175,7 @@ export const GetCardForm = () => {
           required
           label="Select term"
           {...register("term")}
+          defaultValue={{ value: "6", label: "6 month" }}
           items={[
             { value: "6", label: "6 month" },
             { value: "12", label: "12 months" },
