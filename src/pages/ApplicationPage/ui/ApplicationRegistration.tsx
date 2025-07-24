@@ -2,12 +2,21 @@ import { Select } from "@/shared/ui/Select/Select.tsx";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { Loader } from "@/shared/ui/Loader/Loader.tsx";
-import type { SelectValueType } from "@/shared/types/SelectValueType.ts";
 import { Input } from "@/shared/ui/Input/Input.tsx";
 import { DateTime } from "luxon";
-
-type Gender = "MALE" | "FEMALE";
-type GenderSelectValueType = SelectValueType<Gender>;
+import type {
+  DependentAmount,
+  DependentAmountValueType,
+  EmploymentStatus,
+  EmploymentStatusSelectValueType,
+  Gender,
+  GenderSelectValueType,
+  MaritalStatus,
+  MaritalStatusSelectValueType,
+  Position,
+  PositionSelectValueType,
+} from "@/shared/types/SelectTypes.ts";
+import { registerApplication } from "@/pages/ApplicationPage/api/registerApplication.ts";
 
 const GENDER_SELECT_VALUES: Array<GenderSelectValueType> = [
   {
@@ -19,9 +28,6 @@ const GENDER_SELECT_VALUES: Array<GenderSelectValueType> = [
     value: "FEMALE",
   },
 ];
-
-type MaritalStatus = "MARRIED" | "DIVORCED" | "SINGLE" | "WIDOW_WIDOWER";
-type MaritalStatusSelectValueType = SelectValueType<MaritalStatus>;
 
 const MARITAL_STATUS_SELECT_VALUES: Array<MaritalStatusSelectValueType> = [
   {
@@ -42,9 +48,6 @@ const MARITAL_STATUS_SELECT_VALUES: Array<MaritalStatusSelectValueType> = [
   },
 ];
 
-type EmploymentStatus = "UNEMPLOYED" | "SELF_EMPLOYED" | "EMPLOYED" | "BUSINESS_OWNER";
-type EmploymentStatusSelectValueType = SelectValueType<EmploymentStatus>;
-
 const EMPLOYMENT_STATUS_SELECT_VALUES: Array<EmploymentStatusSelectValueType> = [
   {
     label: "Unemployed",
@@ -64,9 +67,6 @@ const EMPLOYMENT_STATUS_SELECT_VALUES: Array<EmploymentStatusSelectValueType> = 
   },
 ];
 
-type Position = "WORKER" | "MID_MANAGER" | "TOP_MANAGER" | "OWNER";
-type PositionSelectValueType = SelectValueType<Position>;
-
 const POSITION_SELECT_VALUES: Array<PositionSelectValueType> = [
   {
     label: "Worker",
@@ -85,9 +85,6 @@ const POSITION_SELECT_VALUES: Array<PositionSelectValueType> = [
     value: "OWNER",
   },
 ];
-
-type DependentAmount = "1" | "2" | "3" | "4";
-type DependentAmountValueType = SelectValueType<DependentAmount>;
 
 const DEPENDENT_AMOUNT_SELECT_VALUES: Array<DependentAmountValueType> = [
   {
@@ -109,15 +106,15 @@ const DEPENDENT_AMOUNT_SELECT_VALUES: Array<DependentAmountValueType> = [
 ];
 
 interface Inputs {
-  gender: GenderSelectValueType;
-  maritalStatus: MaritalStatusSelectValueType;
-  dependentAmount: DependentAmountValueType;
+  gender: Gender;
+  maritalStatus: MaritalStatus;
+  dependentAmount: DependentAmount;
   passportIssueDate: string;
   passportIssueBranch: string;
-  employmentStatus: EmploymentStatusSelectValueType;
-  employerINN: number;
+  employmentStatus: EmploymentStatus;
+  employerINN: string;
   salary: number;
-  position: PositionSelectValueType;
+  position: Position;
   workExperienceTotal: number;
   workExperienceCurrent: number;
 }
@@ -130,11 +127,39 @@ export const ApplicationRegistration = () => {
   } = useForm<Inputs>();
   const [inLoading, setInLoading] = useState<boolean>(false);
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
     setInLoading(true);
-    setTimeout(() => {
-      setInLoading(false);
-    }, 2000);
+    const [day, month, year] = data.passportIssueDate.split(".");
+    const parsedPassportIssueDate = DateTime.fromObject({
+      day: parseInt(day, 10),
+      month: parseInt(month, 10),
+      year: parseInt(year, 10),
+    });
+    registerApplication({
+      applicationId: 8,
+      gender: data.gender,
+      maritalStatus: data.maritalStatus,
+      dependentAmount: +data.dependentAmount,
+      passportIssueDate: parsedPassportIssueDate.toFormat("yyyy-LL-dd"),
+      passportIssueBranch: data.passportIssueBranch,
+      employmentStatus: data.employmentStatus,
+      employerINN: data.employerINN,
+      salary: data.salary,
+      position: data.position,
+      workExperienceTotal: data.workExperienceTotal,
+      workExperienceCurrent: data.workExperienceCurrent,
+    })
+      .then((res) => {
+        console.log(res);
+        setTimeout(() => {
+          setInLoading(false);
+        }, 2000);
+      })
+      .catch((err) => {
+        console.log(err);
+        setTimeout(() => {
+          setInLoading(false);
+        }, 2000);
+      });
   };
   return (
     <form
