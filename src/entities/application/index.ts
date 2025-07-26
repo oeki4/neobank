@@ -1,1 +1,1 @@
-export type { Application } from "./model/application.ts";
+export type { Application, FullApplication } from "./model/application.ts";
