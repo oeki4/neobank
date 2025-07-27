@@ -9,19 +9,20 @@ export const ApplicationPage = () => {
   useEffect(() => {
     if (!id) navigate("/not-found");
 
-    const savedApplicationId = localStorage.getItem(CURRENT_APPLICATION_ID);
-    const applicationStep = localStorage.getItem(APPLICATION_STEP);
-    if (applicationStep && +applicationStep !== 1) navigate("/not-found");
-    else {
-      localStorage.setItem(APPLICATION_STEP, "1");
-    }
+    let savedApplicationId = localStorage.getItem(CURRENT_APPLICATION_ID);
+    let applicationStep = localStorage.getItem(APPLICATION_STEP);
 
-    if (!savedApplicationId && id) {
+    if (!applicationStep && !savedApplicationId && id) {
+      localStorage.setItem(APPLICATION_STEP, "1");
       localStorage.setItem(CURRENT_APPLICATION_ID, id.toString());
     }
-    if (savedApplicationId && id && !(+savedApplicationId === +id)) {
+
+    savedApplicationId = localStorage.getItem(CURRENT_APPLICATION_ID);
+    applicationStep = localStorage.getItem(APPLICATION_STEP);
+    if (savedApplicationId !== id) navigate("/not-found");
+
+    if (!(savedApplicationId && applicationStep && (+applicationStep === 1 || +applicationStep === 2)))
       navigate("/not-found");
-    }
   }, [id, navigate]);
 
   return (

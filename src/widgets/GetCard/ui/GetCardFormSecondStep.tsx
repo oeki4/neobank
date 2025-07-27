@@ -1,6 +1,11 @@
 import type { Application } from "@/entities/application";
 import { ApplicationOffer } from "@/widgets/ApplicationOffer";
-import { GET_CARD_STEP } from "@/shared/const/storageItems.ts";
+import {
+  APPLICATION_ITEMS,
+  APPLICATION_STEP,
+  CURRENT_APPLICATION_ID,
+  GET_CARD_STEP,
+} from "@/shared/const/storageItems.ts";
 import { applyOffer } from "../api/applyOffer.ts";
 
 interface GetCardFormSecondStepProps {
@@ -15,7 +20,10 @@ export const GetCardFormSecondStep = (props: GetCardFormSecondStepProps) => {
     applyOffer(application).then((res) => {
       console.log(res);
       onSetStep(3);
-      localStorage.setItem(GET_CARD_STEP, "3");
+      localStorage.removeItem(GET_CARD_STEP);
+      localStorage.removeItem(CURRENT_APPLICATION_ID);
+      localStorage.removeItem(APPLICATION_ITEMS);
+      localStorage.removeItem(APPLICATION_STEP);
     });
   };
   return (

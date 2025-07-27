@@ -4,12 +4,23 @@ import { Tab } from "@/shared/ui/Tabs/Tab.tsx";
 import { GetCard } from "@/widgets/GetCard";
 import { CardFAQ } from "./CardFAQ.tsx";
 import { AboutCard } from "./AboutCard.tsx";
-import { GET_CARD_STEP } from "@/shared/const/storageItems.ts";
+import { APPLICATION_STEP, CURRENT_APPLICATION_ID, GET_CARD_STEP } from "@/shared/const/storageItems.ts";
 import { CashbackCard } from "./CashbackCard.tsx";
 import { CardRate } from "./CardRate.tsx";
+import { NavLink } from "react-router";
 
 export const LoanPage = () => {
   const step = Number(localStorage.getItem(GET_CARD_STEP)) || 1;
+  const applicationStep = Number(localStorage.getItem(APPLICATION_STEP));
+  const applicationId = Number(localStorage.getItem(CURRENT_APPLICATION_ID));
+
+  const stepPaths = [
+    `/loan/${applicationId}`,
+    `/loan/${applicationId}/document`,
+    `/loan/${applicationId}/document/sign`,
+    `/loan/${applicationId}/code`,
+  ];
+
   return (
     <main className="max-w-[1300px] mx-auto px-4 sm:px-5 lg:px-8 box-content md:mt-5">
       <section className="px-6 lg:px-8 py-6 lg:py-8 bg-[#c9c9c9] flex justify-between gap-12 xl:gap-32 bg-gradient-to-t from-[#FEEBC8] to-[#CBD5E0] rounded-[28px]">
@@ -41,14 +52,22 @@ export const LoanPage = () => {
               </Tooltip>
             </div>
           </div>
-          <a
-            href="#get-card"
-            className="bg-[#003CFF] block mt-8 cursor-pointer w-full text-center sm:w-min whitespace-nowrap text-sm sm:text-base transition-colors font-bold hover:bg-[#7796C0] text-white py-4 px-4 leading-none font-ubuntu rounded-lg"
-          >
-            {step === 1 && "Apply for card"}
-            {step === 2 && "Choose an offer"}
-            {step === 3 && "Continue registration"}
-          </a>
+          {applicationStep ? (
+            <NavLink
+              to={stepPaths[applicationStep - 1]}
+              className="bg-[#003CFF] block mt-8 cursor-pointer w-full text-center sm:w-min whitespace-nowrap text-sm sm:text-base transition-colors font-bold hover:bg-[#7796C0] text-white py-4 px-4 leading-none font-ubuntu rounded-lg"
+            >
+              Continue registration
+            </NavLink>
+          ) : (
+            <a
+              href="#get-card"
+              className="bg-[#003CFF] block mt-8 cursor-pointer w-full text-center sm:w-min whitespace-nowrap text-sm sm:text-base transition-colors font-bold hover:bg-[#7796C0] text-white py-4 px-4 leading-none font-ubuntu rounded-lg"
+            >
+              {step === 1 && "Apply for card"}
+              {step === 2 && "Choose an offer"}
+            </a>
+          )}
         </div>
         <div className="hidden xl:block max-w-[380px] shrink-0 w-full m-0 mr-20">
           <img src="/loan-card.webp" alt="loan-card" />

@@ -17,6 +17,8 @@ import type {
   PositionSelectValueType,
 } from "@/shared/types/SelectTypes.ts";
 import { registerApplication } from "@/pages/ApplicationPage/api/registerApplication.ts";
+import { useNavigate, useParams } from "react-router";
+import { APPLICATION_STEP } from "@/shared/const/storageItems.ts";
 
 const GENDER_SELECT_VALUES: Array<GenderSelectValueType> = [
   {
@@ -126,7 +128,13 @@ export const ApplicationRegistration = () => {
     formState: { errors, isSubmitted },
   } = useForm<Inputs>();
   const [inLoading, setInLoading] = useState<boolean>(false);
+  const { id } = useParams();
   const [successRegister, setSuccessRegister] = useState<boolean>(false);
+  const navigate = useNavigate();
+  if (!id || isNaN(+id)) {
+    navigate("/not-found");
+    return;
+  }
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setInLoading(true);
     const [day, month, year] = data.passportIssueDate.split(".");
@@ -136,7 +144,7 @@ export const ApplicationRegistration = () => {
       year: parseInt(year, 10),
     });
     registerApplication({
-      applicationId: 8,
+      applicationId: +id,
       gender: data.gender,
       maritalStatus: data.maritalStatus,
       dependentAmount: +data.dependentAmount,
@@ -153,7 +161,10 @@ export const ApplicationRegistration = () => {
         console.log(res);
         setTimeout(() => {
           setInLoading(false);
-          if (res.status === 200) setSuccessRegister(true);
+          if (res.status === 200) {
+            setSuccessRegister(true);
+            localStorage.setItem(APPLICATION_STEP, "2");
+          }
         }, 2000);
       })
       .catch((err) => {

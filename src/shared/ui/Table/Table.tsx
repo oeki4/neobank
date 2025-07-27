@@ -47,11 +47,11 @@ export const Table = (props: TableProps) => {
     }
   };
   return (
-    <table className="w-full">
+    <table className="w-full overflow-x-auto">
       <thead>
         <tr>
           {head.map((item, index) => (
-            <td key={index} className="border-b border-[#E2E8F0]">
+            <td key={index} className="border-b pr-6 border-[#E2E8F0]">
               <button
                 onClick={() => sortColumn({ index, field: item.key, dataType: item.type })}
                 className="font-ubuntu py-3 flex items-center gap-2 cursor-pointer font-medium text-[12px] uppercase text-[#4A5568]"
