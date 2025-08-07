@@ -2,10 +2,6 @@ import { describe, test, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Accordion } from "./Accordion";
 
-vi.mock("@/shared/ui/Icons/ArrowIcon", () => ({
-  ArrowIcon: ({ className }: { className?: string }) => <svg className={className} data-testid="arrow-icon" />,
-}));
-
 describe("Accordion component", () => {
   const mockItems = [
     { title: "Title 1", text: "Content 1" },
@@ -31,15 +27,12 @@ describe("Accordion component", () => {
   test("only one item can be opened at a time", () => {
     render(<Accordion items={mockItems} />);
 
-    // Открываем первый элемент
     fireEvent.click(screen.getByText("Title 1"));
     expect(screen.getByText("Content 1")).toBeInTheDocument();
     expect(screen.queryByText("Content 2")).not.toBeInTheDocument();
 
-    // Открываем второй элемент
     fireEvent.click(screen.getByText("Title 2"));
 
-    // Проверяем что первый закрылся, а второй открылся
     expect(screen.queryByText("Content 1")).not.toBeInTheDocument();
     expect(screen.getByText("Content 2")).toBeInTheDocument();
   });
