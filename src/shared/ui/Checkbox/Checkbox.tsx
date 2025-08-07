@@ -1,7 +1,7 @@
 import type { HTMLProps } from "react";
 import cls from "./checkbox.module.scss";
 
-interface CheckboxProps extends HTMLProps<HTMLInputElement> {
+export interface CheckboxProps extends HTMLProps<HTMLInputElement> {
   label?: string;
 }
 

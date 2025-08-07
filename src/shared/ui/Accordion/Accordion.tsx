@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowIcon } from "@/shared/ui/Icons/ArrowIcon.tsx";
+import { ArrowIcon } from "../Icons/ArrowIcon.tsx";
 
 interface AccordionProps {
   items: Array<{ title: string; text: string }>;
@@ -18,7 +18,7 @@ export const Accordion = (props: AccordionProps) => {
   };
 
   return (
-    <div className={["w-full border border-[#E2E8F0]", className].join(" ")}>
+    <div data-testid="accordion-root" className={["w-full border border-[#E2E8F0]", className].join(" ")}>
       {items.map((el, index) => (
         <div className="w-full border-b border-[#E2E8F0]">
           <div
