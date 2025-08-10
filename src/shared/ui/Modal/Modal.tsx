@@ -26,7 +26,7 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
+    <div data-testid="modal-backdrop" className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
       <div className="bg-white p-4 shadow-xl max-w-lg w-full relative" onClick={(e) => e.stopPropagation()}>
         <button
           onClick={onClose}
